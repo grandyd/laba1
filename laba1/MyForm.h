@@ -1,6 +1,6 @@
 #pragma once
 #include "solution.cpp"
-
+#include <utility>
 
 
 namespace laba1 {
@@ -54,6 +54,7 @@ namespace laba1 {
 	private: System::Windows::Forms::Label^ labelH;
 
 	private: System::Windows::Forms::TextBox^ textBoxU0;
+	private: System::Windows::Forms::CheckBox^ checkBox1;
 
 
 	private:
@@ -69,12 +70,13 @@ namespace laba1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBoxEpsilon = (gcnew System::Windows::Forms::TextBox());
 			this->labelEpsilon = (gcnew System::Windows::Forms::Label());
 			this->textBoxN = (gcnew System::Windows::Forms::TextBox());
@@ -89,20 +91,21 @@ namespace laba1 {
 			// 
 			// chart1
 			// 
-			chartArea1->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea1);
-			legend1->Name = L"Legend1";
-			this->chart1->Legends->Add(legend1);
+			chartArea3->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea3);
+			legend3->Name = L"Legend1";
+			this->chart1->Legends->Add(legend3);
 			this->chart1->Location = System::Drawing::Point(12, 235);
 			this->chart1->Name = L"chart1";
-			series1->ChartArea = L"ChartArea1";
-			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series1->Legend = L"Legend1";
-			series1->Name = L"Решение";
-			this->chart1->Series->Add(series1);
+			series3->ChartArea = L"ChartArea1";
+			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series3->Legend = L"Legend1";
+			series3->Name = L"Решение";
+			this->chart1->Series->Add(series3);
 			this->chart1->Size = System::Drawing::Size(639, 401);
 			this->chart1->TabIndex = 0;
 			this->chart1->Text = L"chart1";
+			this->chart1->Click += gcnew System::EventHandler(this, &MyForm::chart1_Click);
 			// 
 			// button1
 			// 
@@ -116,6 +119,7 @@ namespace laba1 {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->checkBox1);
 			this->groupBox1->Controls->Add(this->textBoxEpsilon);
 			this->groupBox1->Controls->Add(this->labelEpsilon);
 			this->groupBox1->Controls->Add(this->textBoxN);
@@ -131,12 +135,26 @@ namespace laba1 {
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Задай меня";
 			// 
+			// checkBox1
+			// 
+			this->checkBox1->AutoSize = true;
+			this->checkBox1->Checked = true;
+			this->checkBox1->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBox1->Location = System::Drawing::Point(163, 106);
+			this->checkBox1->Name = L"checkBox1";
+			this->checkBox1->Size = System::Drawing::Size(156, 17);
+			this->checkBox1->TabIndex = 3;
+			this->checkBox1->Text = L"Учитывать погрешность\?";
+			this->checkBox1->UseVisualStyleBackColor = true;
+			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &MyForm::checkBox1_CheckedChanged);
+			// 
 			// textBoxEpsilon
 			// 
 			this->textBoxEpsilon->Location = System::Drawing::Point(39, 103);
 			this->textBoxEpsilon->Name = L"textBoxEpsilon";
 			this->textBoxEpsilon->Size = System::Drawing::Size(118, 20);
 			this->textBoxEpsilon->TabIndex = 7;
+			this->textBoxEpsilon->Text = L"0,000001";
 			// 
 			// labelEpsilon
 			// 
@@ -170,7 +188,7 @@ namespace laba1 {
 			this->textBoxH->Name = L"textBoxH";
 			this->textBoxH->Size = System::Drawing::Size(118, 20);
 			this->textBoxH->TabIndex = 3;
-			this->textBoxH->Text = L"0.0001";
+			this->textBoxH->Text = L"0,0001";
 			// 
 			// labelH
 			// 
@@ -218,19 +236,84 @@ namespace laba1 {
 #pragma endregion
 	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
+
+		   double mods(double x, double v, double h)
+		   {
+			   double x12, v12;
+			   x12 = nextX(x, h / 2);
+			   v12 = nextV(x, v, h / 2);
+			   double v1kr = nextV(x12, v12, h / 2);
+			   double v1 = nextV(x, v, h);
+			   double s = (v1kr - v1) / (pow(2, 3) - 1);
+			   return abs(s);
+		   }
+
+
+
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	this->chart1->Series["Решение"]->Points->Clear();
+
 	double x = 0;
 	double v = System::Convert::ToDouble(textBoxU0->Text);
+	double vkr = v;
 	double h = System::Convert::ToDouble(textBoxH->Text);
+	double Epsilon = System::Convert::ToDouble(textBoxEpsilon->Text);
 	int N = System::Convert::ToInt32(textBoxN->Text);
 
-	for (int i = 0; i < N; i++)
+	if (!checkBox1->Checked)
 	{
-		chart1->Series["Решение"]->Points->AddXY(x, v);
-		x = nextX(x, h);
-		v = nextV(x, v, h);
+		for (int i = 0; i < N; i++)
+		{
+			chart1->Series["Решение"]->Points->AddXY(x, v);
+			x = nextX(x, h);
+			v = nextV(x, v, h);
+		}
 	}
+	else
+	{
+		double modS = 0;
+		for (int i = 0; i < N; i++)
+		{
+			modS = mods(x, v, h);
+			if (modS<Epsilon)
+			{
+				h = 2*h;
+				//if (maxH < h)
+				//{
+				//	maxH = h;
+				//}
+				//counterU++;
+			}
+			else if (modS > Epsilon)
+			{
+				double prevX=x,prevV=v;
+				h /= 2;
+				//if (minH > h)
+				//{
+				//	minH = h;
+				//}
+				//counterL++;
+				vkr = vkrNext(prevX, prevV, h);
+				x = nextX(prevX, h);
+				v = nextV(prevX, prevV, h);
+				//en = pow(2, 3) * (vkr - prevV) / (pow(2, 3) - 1) * pow(2, 3);
+			}
 
+
+			chart1->Series["Решение"]->Points->AddXY(x, v);
+
+
+			x = nextX(x, h);
+			v = nextV(x, v, h);
+		}
+	}
+	
+
+}
+private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }
