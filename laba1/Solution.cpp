@@ -41,3 +41,8 @@ inline double vkrNext(double x, double v, double h)
 	v = nextV(x, v, h);
 	return nextV(x, v, h);
 }
+
+inline double u(double x)
+{
+	return exp(-x / 2);
+}

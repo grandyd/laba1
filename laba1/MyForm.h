@@ -55,6 +55,20 @@ namespace laba1 {
 
 	private: System::Windows::Forms::TextBox^ textBoxU0;
 	private: System::Windows::Forms::CheckBox^ checkBox1;
+	private: System::Windows::Forms::ListView^ listView1;
+	private: System::Windows::Forms::ColumnHeader^ ColumnHeader1;
+
+	private: System::Windows::Forms::ColumnHeader^ Xi;
+	private: System::Windows::Forms::ColumnHeader^ Vi;
+	private: System::Windows::Forms::ColumnHeader^ V2i;
+	private: System::Windows::Forms::ColumnHeader^ viMINUSv2i;
+	private: System::Windows::Forms::ColumnHeader^ ОЛП;
+	private: System::Windows::Forms::ColumnHeader^ hi;
+	private: System::Windows::Forms::ColumnHeader^ C1;
+	private: System::Windows::Forms::ColumnHeader^ C2;
+	private: System::Windows::Forms::ColumnHeader^ Ui;
+	private: System::Windows::Forms::ColumnHeader^ UiMINUSVi;
+
 
 
 	private:
@@ -70,9 +84,10 @@ namespace laba1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -85,33 +100,50 @@ namespace laba1 {
 			this->labelH = (gcnew System::Windows::Forms::Label());
 			this->textBoxU0 = (gcnew System::Windows::Forms::TextBox());
 			this->labelU0 = (gcnew System::Windows::Forms::Label());
+			this->listView1 = (gcnew System::Windows::Forms::ListView());
+			this->ColumnHeader1 = (gcnew System::Windows::Forms::ColumnHeader());
+			this->Xi = (gcnew System::Windows::Forms::ColumnHeader());
+			this->Vi = (gcnew System::Windows::Forms::ColumnHeader());
+			this->V2i = (gcnew System::Windows::Forms::ColumnHeader());
+			this->viMINUSv2i = (gcnew System::Windows::Forms::ColumnHeader());
+			this->ОЛП = (gcnew System::Windows::Forms::ColumnHeader());
+			this->hi = (gcnew System::Windows::Forms::ColumnHeader());
+			this->C1 = (gcnew System::Windows::Forms::ColumnHeader());
+			this->C2 = (gcnew System::Windows::Forms::ColumnHeader());
+			this->Ui = (gcnew System::Windows::Forms::ColumnHeader());
+			this->UiMINUSVi = (gcnew System::Windows::Forms::ColumnHeader());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// chart1
 			// 
-			chartArea3->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea3);
-			legend3->Name = L"Legend1";
-			this->chart1->Legends->Add(legend3);
+			chartArea1->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chart1->Legends->Add(legend1);
 			this->chart1->Location = System::Drawing::Point(12, 235);
 			this->chart1->Name = L"chart1";
-			series3->ChartArea = L"ChartArea1";
-			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series3->Legend = L"Legend1";
-			series3->Name = L"Решение";
-			this->chart1->Series->Add(series3);
-			this->chart1->Size = System::Drawing::Size(639, 401);
+			series1->ChartArea = L"ChartArea1";
+			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series1->Legend = L"Legend1";
+			series1->Name = L"Численное решение";
+			series2->ChartArea = L"ChartArea1";
+			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series2->Legend = L"Legend1";
+			series2->Name = L"Истинное решение";
+			this->chart1->Series->Add(series1);
+			this->chart1->Series->Add(series2);
+			this->chart1->Size = System::Drawing::Size(515, 401);
 			this->chart1->TabIndex = 0;
 			this->chart1->Text = L"chart1";
 			this->chart1->Click += gcnew System::EventHandler(this, &MyForm::chart1_Click);
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(57, 80);
+			this->button1->Location = System::Drawing::Point(379, 12);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(331, 66);
+			this->button1->Size = System::Drawing::Size(84, 168);
 			this->button1->TabIndex = 1;
 			this->button1->Text = L"Вычислить";
 			this->button1->UseVisualStyleBackColor = true;
@@ -128,9 +160,9 @@ namespace laba1 {
 			this->groupBox1->Controls->Add(this->labelH);
 			this->groupBox1->Controls->Add(this->textBoxU0);
 			this->groupBox1->Controls->Add(this->labelU0);
-			this->groupBox1->Location = System::Drawing::Point(727, 12);
+			this->groupBox1->Location = System::Drawing::Point(12, 12);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(359, 230);
+			this->groupBox1->Size = System::Drawing::Size(349, 168);
 			this->groupBox1->TabIndex = 2;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Задай меня";
@@ -217,11 +249,70 @@ namespace laba1 {
 			this->labelU0->Text = L"U0=";
 			this->labelU0->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
 			// 
+			// listView1
+			// 
+			this->listView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(11) {
+				this->ColumnHeader1, this->Xi,
+					this->Vi, this->V2i, this->viMINUSv2i, this->ОЛП, this->hi, this->C1, this->C2, this->Ui, this->UiMINUSVi
+			});
+			this->listView1->HideSelection = false;
+			this->listView1->Location = System::Drawing::Point(533, 423);
+			this->listView1->Name = L"listView1";
+			this->listView1->Size = System::Drawing::Size(645, 213);
+			this->listView1->TabIndex = 3;
+			this->listView1->UseCompatibleStateImageBehavior = false;
+			this->listView1->View = System::Windows::Forms::View::Details;
+			// 
+			// ColumnHeader1
+			// 
+			this->ColumnHeader1->Text = L"i";
+			// 
+			// Xi
+			// 
+			this->Xi->Text = L"Xi";
+			// 
+			// Vi
+			// 
+			this->Vi->Text = L"Vi";
+			// 
+			// V2i
+			// 
+			this->V2i->Text = L"V2i";
+			// 
+			// viMINUSv2i
+			// 
+			this->viMINUSv2i->Text = L"vi-v2i";
+			// 
+			// ОЛП
+			// 
+			this->ОЛП->Text = L"ОЛП";
+			// 
+			// hi
+			// 
+			this->hi->Text = L"hi";
+			// 
+			// C1
+			// 
+			this->C1->Text = L"C1";
+			// 
+			// C2
+			// 
+			this->C2->Text = L"C2";
+			// 
+			// Ui
+			// 
+			this->Ui->Text = L"Ui";
+			// 
+			// UiMINUSVi
+			// 
+			this->UiMINUSVi->Text = L"|Ui-Vi|";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1181, 648);
+			this->Controls->Add(this->listView1);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->chart1);
@@ -252,22 +343,51 @@ namespace laba1 {
 
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	this->chart1->Series["Решение"]->Points->Clear();
+	this->chart1->Series["Численное решение"]->Points->Clear();
+	this->chart1->Series["Истинное решение"]->Points->Clear();
+	this->listView1->Items->Clear();
 
-	double x = 0;
+
+	double x = -3;
+	int CounterL = 0;
+	int CounterU = 0;
 	double v = System::Convert::ToDouble(textBoxU0->Text);
 	double vkr = v;
 	double h = System::Convert::ToDouble(textBoxH->Text);
 	double Epsilon = System::Convert::ToDouble(textBoxEpsilon->Text);
 	int N = System::Convert::ToInt32(textBoxN->Text);
+	double en = 0;
+	double u0 = 0;
+
+	array<String^>^ ms = gcnew array< System::String^ >(11);
+
 
 	if (!checkBox1->Checked)
 	{
+
 		for (int i = 0; i < N; i++)
 		{
-			chart1->Series["Решение"]->Points->AddXY(x, v);
+			u0 = u(x);
+			ms[0] = i.ToString();
+			ms[1] = x.ToString();
+			ms[2] = v.ToString();
+			ms[3] = vkr.ToString();
+			ms[4] = (v-vkr).ToString();
+			ms[5] = en.ToString();
+			ms[6] = h.ToString();
+			ms[7] = CounterL.ToString();
+			ms[8] = CounterU.ToString();
+			ms[9] = u0.ToString();
+			ms[10] = (u0-v).ToString();
+			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
+			listView1->Items->Add(listViewItem0);
+
+			chart1->Series["Численное решение"]->Points->AddXY(x, v);
+			chart1->Series["Истинное решение"]->Points->AddXY(x, u0);
+			en = pow(2, 4) * (vkr - v) / (pow(2, 4) - 1) * pow(2, 4);
 			x = nextX(x, h);
 			v = nextV(x, v, h);
+			
 		}
 	}
 	else
@@ -275,6 +395,20 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		double modS = 0;
 		for (int i = 0; i < N; i++)
 		{
+			u0 = u(x);
+			ms[0] = i.ToString();
+			ms[1] = x.ToString();
+			ms[2] = v.ToString();
+			ms[3] = vkr.ToString();
+			ms[4] = (v - vkr).ToString();
+			ms[5] = en.ToString();
+			ms[6] = h.ToString();
+			ms[7] = CounterL.ToString();
+			ms[8] = CounterU.ToString();
+			ms[9] = u0.ToString();
+			ms[10] = (u0 - v).ToString();
+			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
+			listView1->Items->Add(listViewItem0);
 			modS = mods(x, v, h);
 			if (modS<Epsilon)
 			{
@@ -283,7 +417,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				//{
 				//	maxH = h;
 				//}
-				//counterU++;
+				CounterU++;
 			}
 			else if (modS > Epsilon)
 			{
@@ -293,15 +427,16 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				//{
 				//	minH = h;
 				//}
-				//counterL++;
+				CounterL++;
+				en = pow(2, 4) * (vkr - v) / (pow(2, 4) - 1) * pow(2, 4);
 				vkr = vkrNext(prevX, prevV, h);
 				x = nextX(prevX, h);
 				v = nextV(prevX, prevV, h);
-				//en = pow(2, 3) * (vkr - prevV) / (pow(2, 3) - 1) * pow(2, 3);
 			}
 
 
-			chart1->Series["Решение"]->Points->AddXY(x, v);
+			chart1->Series["Численное решение"]->Points->AddXY(x, v);
+			chart1->Series["Истинное решение"]->Points->AddXY(x, u(x));
 
 
 			x = nextX(x, h);
