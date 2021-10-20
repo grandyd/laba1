@@ -306,7 +306,7 @@ namespace laba1 {
 					this->Vi, this->V2i, this->viMINUSv2i, this->ОЛП, this->hi, this->C1, this->C2, this->Ui, this->UiMINUSVi
 			});
 			this->listView1->HideSelection = false;
-			this->listView1->Location = System::Drawing::Point(533, 423);
+			this->listView1->Location = System::Drawing::Point(533, 335);
 			this->listView1->Name = L"listView1";
 			this->listView1->Size = System::Drawing::Size(645, 213);
 			this->listView1->TabIndex = 3;
@@ -592,6 +592,11 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	this->chart1->Series["Истинное решение"]->Points->Clear();
 	this->listView1->Items->Clear();
 
+
+	double maxx=0;
+	double minx=0;
+	double maxux=0;
+
 	double maxUV = -1;
 	double x = 0;
 	double maxOLP = 0;
@@ -634,6 +639,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			if (maxUV<abs(u0-v))
 			{
 				maxUV = abs((u0 - v));
+				maxux = x;
 			}
 			chart1->Series["Численное решение"]->Points->AddXY(x, v);
 			chart1->Series["Истинное решение"]->Points->AddXY(x, u0);
@@ -650,7 +656,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	else
 	{
 		double modS = 0;
-		int i = 0;
+		
 		for (i ; i < N; i++)
 		{
 			u0 = u(x);
@@ -674,6 +680,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				if (maxH < h)
 				{
 					maxH = h;
+					maxx = x;
 				}
 				CounterU++;
 			}
@@ -684,6 +691,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				if (minH > h)
 				{
 					minH = h;
+					minx = x;
 				}
 				CounterL++;
 				en = pow(2, 4) * (vkr - v) / (pow(2, 4) - 1) * pow(2, 4);
@@ -699,6 +707,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			if (maxUV < abs(u0 - v))
 			{
 				maxUV = abs((u0 - v));
+				maxux = x;
 			}
 			chart1->Series["Численное решение"]->Points->AddXY(x, v);
 			chart1->Series["Истинное решение"]->Points->AddXY(x, u(x));
@@ -714,11 +723,11 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	labelB->Text = "Если бы мы знали что это такое, но мы не знаем что это такое";
 	labelOLP->Text = maxOLP.ToString();
 	labelmaxh->Text = maxH.ToString();
-	labelmaxx->Text = "";
+	labelmaxx->Text = maxx.ToString();
 	labelminh->Text = minH.ToString();
-	labelminhx->Text = "";
+	labelminhx->Text = minx.ToString();
 	labelmaxu->Text = maxUV.ToString();
-	labelmaxux->Text = "";
+	labelmaxux->Text = maxux.ToString();
 
 }
 private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
