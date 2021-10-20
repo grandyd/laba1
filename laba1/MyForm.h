@@ -66,8 +66,8 @@ namespace laba1 {
 	private: System::Windows::Forms::ColumnHeader^ hi;
 	private: System::Windows::Forms::ColumnHeader^ C1;
 	private: System::Windows::Forms::ColumnHeader^ C2;
-	private: System::Windows::Forms::ColumnHeader^ Ui;
-	private: System::Windows::Forms::ColumnHeader^ UiMINUSVi;
+
+
 	private: System::Windows::Forms::GroupBox^ groupBox2;
 	private: System::Windows::Forms::Label^ labelmaxx;
 
@@ -86,18 +86,20 @@ namespace laba1 {
 	private: System::Windows::Forms::Label^ labeln;
 
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Label^ labelmaxux;
 
-	private: System::Windows::Forms::Label^ labelmaxu;
+
+
 
 	private: System::Windows::Forms::Label^ labelminhx;
 
 	private: System::Windows::Forms::Label^ labelminh;
 
-	private: System::Windows::Forms::Label^ label14;
-	private: System::Windows::Forms::Label^ label15;
+
+
 	private: System::Windows::Forms::Label^ label12;
 	private: System::Windows::Forms::Label^ label13;
+	private: System::Windows::Forms::TextBox^ textBoxX0;
+	private: System::Windows::Forms::Label^ label2;
 
 
 
@@ -121,6 +123,8 @@ namespace laba1 {
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->textBoxX0 = (gcnew System::Windows::Forms::TextBox());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBoxEpsilon = (gcnew System::Windows::Forms::TextBox());
 			this->labelEpsilon = (gcnew System::Windows::Forms::Label());
@@ -140,15 +144,9 @@ namespace laba1 {
 			this->hi = (gcnew System::Windows::Forms::ColumnHeader());
 			this->C1 = (gcnew System::Windows::Forms::ColumnHeader());
 			this->C2 = (gcnew System::Windows::Forms::ColumnHeader());
-			this->Ui = (gcnew System::Windows::Forms::ColumnHeader());
-			this->UiMINUSVi = (gcnew System::Windows::Forms::ColumnHeader());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->labelmaxux = (gcnew System::Windows::Forms::Label());
-			this->labelmaxu = (gcnew System::Windows::Forms::Label());
 			this->labelminhx = (gcnew System::Windows::Forms::Label());
 			this->labelminh = (gcnew System::Windows::Forms::Label());
-			this->label14 = (gcnew System::Windows::Forms::Label());
-			this->label15 = (gcnew System::Windows::Forms::Label());
 			this->label12 = (gcnew System::Windows::Forms::Label());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->labelmaxx = (gcnew System::Windows::Forms::Label());
@@ -201,6 +199,8 @@ namespace laba1 {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->textBoxX0);
+			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->checkBox1);
 			this->groupBox1->Controls->Add(this->textBoxEpsilon);
 			this->groupBox1->Controls->Add(this->labelEpsilon);
@@ -216,6 +216,23 @@ namespace laba1 {
 			this->groupBox1->TabIndex = 2;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Задай меня";
+			// 
+			// textBoxX0
+			// 
+			this->textBoxX0->Location = System::Drawing::Point(39, 129);
+			this->textBoxX0->Name = L"textBoxX0";
+			this->textBoxX0->Size = System::Drawing::Size(118, 20);
+			this->textBoxX0->TabIndex = 9;
+			this->textBoxX0->Text = L"-3";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(6, 132);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(26, 13);
+			this->label2->TabIndex = 8;
+			this->label2->Text = L"X0=";
 			// 
 			// checkBox1
 			// 
@@ -301,9 +318,9 @@ namespace laba1 {
 			// 
 			// listView1
 			// 
-			this->listView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(11) {
+			this->listView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(9) {
 				this->ColumnHeader1, this->Xi,
-					this->Vi, this->V2i, this->viMINUSv2i, this->ОЛП, this->hi, this->C1, this->C2, this->Ui, this->UiMINUSVi
+					this->Vi, this->V2i, this->viMINUSv2i, this->ОЛП, this->hi, this->C1, this->C2
 			});
 			this->listView1->HideSelection = false;
 			this->listView1->Location = System::Drawing::Point(533, 335);
@@ -350,22 +367,10 @@ namespace laba1 {
 			// 
 			this->C2->Text = L"C2";
 			// 
-			// Ui
-			// 
-			this->Ui->Text = L"Ui";
-			// 
-			// UiMINUSVi
-			// 
-			this->UiMINUSVi->Text = L"|Ui-Vi|";
-			// 
 			// groupBox2
 			// 
-			this->groupBox2->Controls->Add(this->labelmaxux);
-			this->groupBox2->Controls->Add(this->labelmaxu);
 			this->groupBox2->Controls->Add(this->labelminhx);
 			this->groupBox2->Controls->Add(this->labelminh);
-			this->groupBox2->Controls->Add(this->label14);
-			this->groupBox2->Controls->Add(this->label15);
 			this->groupBox2->Controls->Add(this->label12);
 			this->groupBox2->Controls->Add(this->label13);
 			this->groupBox2->Controls->Add(this->labelmaxx);
@@ -386,24 +391,6 @@ namespace laba1 {
 			this->groupBox2->Text = L"Справка";
 			this->groupBox2->Enter += gcnew System::EventHandler(this, &MyForm::groupBox2_Enter);
 			// 
-			// labelmaxux
-			// 
-			this->labelmaxux->AutoSize = true;
-			this->labelmaxux->Location = System::Drawing::Point(73, 128);
-			this->labelmaxux->MaximumSize = System::Drawing::Size(350, 0);
-			this->labelmaxux->Name = L"labelmaxux";
-			this->labelmaxux->Size = System::Drawing::Size(0, 13);
-			this->labelmaxux->TabIndex = 17;
-			// 
-			// labelmaxu
-			// 
-			this->labelmaxu->AutoSize = true;
-			this->labelmaxu->Location = System::Drawing::Point(73, 115);
-			this->labelmaxu->MaximumSize = System::Drawing::Size(350, 0);
-			this->labelmaxu->Name = L"labelmaxu";
-			this->labelmaxu->Size = System::Drawing::Size(0, 13);
-			this->labelmaxu->TabIndex = 16;
-			// 
 			// labelminhx
 			// 
 			this->labelminhx->AutoSize = true;
@@ -421,24 +408,6 @@ namespace laba1 {
 			this->labelminh->Name = L"labelminh";
 			this->labelminh->Size = System::Drawing::Size(0, 13);
 			this->labelminh->TabIndex = 14;
-			// 
-			// label14
-			// 
-			this->label14->AutoSize = true;
-			this->label14->Location = System::Drawing::Point(6, 128);
-			this->label14->Name = L"label14";
-			this->label14->Size = System::Drawing::Size(18, 13);
-			this->label14->TabIndex = 13;
-			this->label14->Text = L"x=";
-			// 
-			// label15
-			// 
-			this->label15->AutoSize = true;
-			this->label15->Location = System::Drawing::Point(6, 115);
-			this->label15->Name = L"label15";
-			this->label15->Size = System::Drawing::Size(58, 13);
-			this->label15->TabIndex = 12;
-			this->label15->Text = L"max|Ui-Vi|=";
 			// 
 			// label12
 			// 
@@ -598,7 +567,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	double maxux=0;
 
 	double maxUV = -1;
-	double x = 0;
+	double x = System::Convert::ToDouble(textBoxX0->Text);
 	double maxOLP = 0;
 	int CounterL = 0;
 	int CounterU = 0;
@@ -611,15 +580,14 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	double u0 = 0;
 	double maxH = h, minH = h;
 
-	array<String^>^ ms = gcnew array< System::String^ >(11);
-
+	array<String^>^ ms = gcnew array< System::String^ >(9);
+	double prevX = x, prevV = v;
 	int i = 0;
 	if (!checkBox1->Checked)
 	{
 
 		for (i; i < N; i++)
 		{
-			u0 = u(x);
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
 			ms[2] = v.ToString();
@@ -629,8 +597,6 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			ms[6] = h.ToString();
 			ms[7] = CounterL.ToString();
 			ms[8] = CounterU.ToString();
-			ms[9] = u0.ToString();
-			ms[10] = (u0-v).ToString();
 			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
 			listView1->Items->Add(listViewItem0);
 
@@ -642,7 +608,6 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				maxux = x;
 			}
 			chart1->Series["Численное решение"]->Points->AddXY(x, v);
-			chart1->Series["Истинное решение"]->Points->AddXY(x, u0);
 			en = pow(2, 4) * (vkr - v) / (pow(2, 4) - 1) * pow(2, 4);
 			if (maxOLP<abs(en))
 			{
@@ -659,7 +624,6 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		
 		for (i ; i < N; i++)
 		{
-			u0 = u(x);
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
 			ms[2] = v.ToString();
@@ -669,8 +633,6 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			ms[6] = h.ToString();
 			ms[7] = CounterL.ToString();
 			ms[8] = CounterU.ToString();
-			ms[9] = u0.ToString();
-			ms[10] = (u0 - v).ToString();
 			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
 			listView1->Items->Add(listViewItem0);
 			modS = mods(x, v, h);
@@ -686,7 +648,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			}
 			else if (modS > Epsilon)
 			{
-				double prevX=x,prevV=v;
+				
 				h /= 2;
 				if (minH > h)
 				{
@@ -710,9 +672,8 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				maxux = x;
 			}
 			chart1->Series["Численное решение"]->Points->AddXY(x, v);
-			chart1->Series["Истинное решение"]->Points->AddXY(x, u(x));
 
-
+			prevX = x, prevV = v;
 			x = nextX(x, h);
 			v = nextV(x, v, h);
 		}
@@ -726,8 +687,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	labelmaxx->Text = maxx.ToString();
 	labelminh->Text = minH.ToString();
 	labelminhx->Text = minx.ToString();
-	labelmaxu->Text = maxUV.ToString();
-	labelmaxux->Text = maxux.ToString();
+
 
 }
 private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
