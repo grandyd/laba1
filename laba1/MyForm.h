@@ -100,6 +100,8 @@ namespace laba1 {
 	private: System::Windows::Forms::Label^ label13;
 	private: System::Windows::Forms::TextBox^ textBoxX0;
 	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::TextBox^ textBoxB;
+	private: System::Windows::Forms::Label^ label4;
 
 
 
@@ -159,6 +161,8 @@ namespace laba1 {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->labeln = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->textBoxB = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
@@ -199,6 +203,8 @@ namespace laba1 {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->textBoxB);
+			this->groupBox1->Controls->Add(this->label4);
 			this->groupBox1->Controls->Add(this->textBoxX0);
 			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->checkBox1);
@@ -518,6 +524,23 @@ namespace laba1 {
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"n=";
 			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(185, 28);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(19, 13);
+			this->label4->TabIndex = 10;
+			this->label4->Text = L"b=";
+			// 
+			// textBoxB
+			// 
+			this->textBoxB->Location = System::Drawing::Point(210, 25);
+			this->textBoxB->Name = L"textBoxB";
+			this->textBoxB->Size = System::Drawing::Size(118, 20);
+			this->textBoxB->TabIndex = 11;
+			this->textBoxB->Text = L"10000";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -571,6 +594,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	double maxOLP = 0;
 	int CounterL = 0;
 	int CounterU = 0;
+	double b = System::Convert::ToDouble(textBoxB->Text);
 	double v = System::Convert::ToDouble(textBoxU0->Text);
 	double vkr = v;
 	double h = System::Convert::ToDouble(textBoxH->Text);
@@ -583,10 +607,12 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	array<String^>^ ms = gcnew array< System::String^ >(9);
 	double prevX = x, prevV = v;
 	int i = 0;
+
+	
 	if (!checkBox1->Checked)
 	{
 
-		for (i; i < N; i++)
+		for (i; i < N || x>b; i++)
 		{
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
@@ -613,6 +639,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			{
 				maxOLP = abs(en);
 			}
+			prevX = x;
 			x = nextX(x, h);
 			v = nextV(x, v, h);
 			
@@ -624,6 +651,11 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		
 		for (i ; i < N; i++)
 		{
+			if (x>=b)
+			{
+				break;
+			}
+
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
 			ms[2] = v.ToString();
@@ -671,6 +703,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				maxUV = abs((u0 - v));
 				maxux = x;
 			}
+			//MessageBox::Show((vkr - v).ToString());
 			chart1->Series["„исленное решение"]->Points->AddXY(x, v);
 
 			prevX = x, prevV = v;
@@ -681,7 +714,8 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	}
 	
 	labeln->Text = i.ToString();
-	labelB->Text = "≈сли бы мы знали что это такое, но мы не знаем что это такое";
+	MessageBox::Show(x.ToString());
+	labelB->Text = (b-prevX).ToString();
 	labelOLP->Text = maxOLP.ToString();
 	labelmaxh->Text = maxH.ToString();
 	labelmaxx->Text = maxx.ToString();
