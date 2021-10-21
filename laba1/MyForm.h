@@ -644,12 +644,14 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 
 		for (i; i < N; i++)
 		{
-			if (x>=b)
+			if (x>=b)//Контроль выхода за границу
 			{
 				break;
 			}
 
-			u0 = u(x);
+			u0 = u(x);//Истинное решение в точке
+
+			//Заполнение таблицы
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
 			ms[2] = v.ToString();
@@ -663,21 +665,24 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			ms[10] = (u0-v).ToString();
 			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
 			listView1->Items->Add(listViewItem0);
-
-
+			//-----------------
 
 			if (maxUV<abs(u0-v))
 			{
 				maxUV = abs((u0 - v));
 				maxux = x;
 			}
+
 			chart1->Series["Численное решение"]->Points->AddXY(x, v);
 			chart1->Series["Истинное решение"]->Points->AddXY(x, u0);
-			en = pow(2, 4) * (vkr - v) / (pow(2, 4) - 1) * pow(2, 4);
+
+			en = pow(2, 4) * (vkr - v) / (pow(2, 4) - 1) * pow(2, 4);//ОЛП
+
 			if (maxOLP<abs(en))
 			{
 				maxOLP = abs(en);
 			}
+
 			prevX = x;
 			x = nextX(x, h);
 			v = nextV(x, v, h);
@@ -690,12 +695,14 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		
 		for (i ; i < N; i++)
 		{
-			if (x >= b)
+			if (x >= b)//Контроль выхода за границу
 			{
 				break;
 			}
 
-			u0 = u(x);
+			u0 = u(x);//Истинное решение в точке
+
+			//Заполнение таблицы
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
 			ms[2] = v.ToString();
@@ -709,6 +716,9 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			ms[10] = (u0 - v).ToString();
 			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
 			listView1->Items->Add(listViewItem0);
+			//-----------------
+
+			//Контроль шага
 			modS = mods(x, v, h);
 			if (modS<Epsilon)
 			{
@@ -735,6 +745,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				x = nextX(prevX, h);
 				v = nextV(prevX, prevV, h);
 			}
+			//----------------
 
 			if (maxOLP < abs(en))
 			{
@@ -745,6 +756,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				maxUV = abs((u0 - v));
 				maxux = x;
 			}
+
 			chart1->Series["Численное решение"]->Points->AddXY(x, v);
 			chart1->Series["Истинное решение"]->Points->AddXY(x, u(x));
 
@@ -756,6 +768,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		
 	}
 	
+	//Заполнение справки
 	labeln->Text = i.ToString();
 	labelB->Text = (b-x).ToString();
 	labelOLP->Text = maxOLP.ToString();
