@@ -662,7 +662,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			ms[7] = CounterL.ToString();
 			ms[8] = CounterU.ToString();
 			ms[9] = u0.ToString();
-			ms[10] = (u0-v).ToString();
+			ms[10] = abs(u0-v).ToString();
 			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
 			listView1->Items->Add(listViewItem0);
 			//-----------------
@@ -713,7 +713,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			ms[7] = CounterL.ToString();
 			ms[8] = CounterU.ToString();
 			ms[9] = u0.ToString();
-			ms[10] = (u0 - v).ToString();
+			ms[10] = abs(u0 - v).ToString();
 			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
 			listView1->Items->Add(listViewItem0);
 			//-----------------
