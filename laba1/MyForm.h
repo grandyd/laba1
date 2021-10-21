@@ -612,8 +612,13 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	if (!checkBox1->Checked)
 	{
 
-		for (i; i < N || x>b; i++)
+		for (i; i < N; i++)
 		{
+			if (x>=b)//контроль выхода за границу
+			{
+				break;
+			}
+			//Заполнение таблички
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
 			ms[2] = v.ToString();
@@ -625,21 +630,24 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			ms[8] = CounterU.ToString();
 			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
 			listView1->Items->Add(listViewItem0);
-
-
+			//-----------
 
 			if (maxUV<abs(u0-v))
 			{
 				maxUV = abs((u0 - v));
 				maxux = x;
 			}
+
 			chart1->Series["Численное решение"]->Points->AddXY(x, v);
-			en = pow(2, 4) * (vkr - v) / (pow(2, 4) - 1) * pow(2, 4);
+
+			en = pow(2, 4) * (vkr - v) / (pow(2, 4) - 1) * pow(2, 4);//ОЛП
+
 			if (maxOLP<abs(en))
 			{
 				maxOLP = abs(en);
 			}
 			prevX = x;
+
 			x = nextX(x, h);
 			v = nextV(x, v, h);
 			
@@ -651,11 +659,12 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		
 		for (i ; i < N; i++)
 		{
-			if (x>=b)
+			if (x>=b)//контроль выхода за границу
 			{
 				break;
 			}
 
+			//Заполнение таблички
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
 			ms[2] = v.ToString();
@@ -667,7 +676,11 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			ms[8] = CounterU.ToString();
 			ListViewItem^ listViewItem0 = gcnew ListViewItem(ms);
 			listView1->Items->Add(listViewItem0);
+			//--------------------
+			
+			//Контроль шага
 			modS = mods(x, v, h);
+
 			if (modS<Epsilon)
 			{
 				h = 2*h;
@@ -693,6 +706,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				x = nextX(prevX, h);
 				v = nextV(prevX, prevV, h);
 			}
+			//--------------
 
 			if (maxOLP < abs(en))
 			{
@@ -703,7 +717,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 				maxUV = abs((u0 - v));
 				maxux = x;
 			}
-			//MessageBox::Show((vkr - v).ToString());
+
 			chart1->Series["Численное решение"]->Points->AddXY(x, v);
 
 			prevX = x, prevV = v;
@@ -712,7 +726,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		}
 		
 	}
-	
+	//Заполнение справки
 	labeln->Text = i.ToString();
 	MessageBox::Show(x.ToString());
 	labelB->Text = (b-prevX).ToString();
