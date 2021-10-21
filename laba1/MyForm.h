@@ -98,6 +98,9 @@ namespace laba1 {
 	private: System::Windows::Forms::Label^ label15;
 	private: System::Windows::Forms::Label^ label12;
 	private: System::Windows::Forms::Label^ label13;
+	private: System::Windows::Forms::TextBox^ textBoxb;
+
+	private: System::Windows::Forms::Label^ label2;
 
 
 
@@ -114,13 +117,15 @@ namespace laba1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series4 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->textBoxb = (gcnew System::Windows::Forms::TextBox());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBoxEpsilon = (gcnew System::Windows::Forms::TextBox());
 			this->labelEpsilon = (gcnew System::Windows::Forms::Label());
@@ -168,22 +173,22 @@ namespace laba1 {
 			// 
 			// chart1
 			// 
-			chartArea1->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea1);
-			legend1->Name = L"Legend1";
-			this->chart1->Legends->Add(legend1);
+			chartArea2->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea2);
+			legend2->Name = L"Legend1";
+			this->chart1->Legends->Add(legend2);
 			this->chart1->Location = System::Drawing::Point(12, 235);
 			this->chart1->Name = L"chart1";
-			series1->ChartArea = L"ChartArea1";
-			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series1->Legend = L"Legend1";
-			series1->Name = L"Численное решение";
-			series2->ChartArea = L"ChartArea1";
-			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series2->Legend = L"Legend1";
-			series2->Name = L"Истинное решение";
-			this->chart1->Series->Add(series1);
-			this->chart1->Series->Add(series2);
+			series3->ChartArea = L"ChartArea1";
+			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series3->Legend = L"Legend1";
+			series3->Name = L"Численное решение";
+			series4->ChartArea = L"ChartArea1";
+			series4->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series4->Legend = L"Legend1";
+			series4->Name = L"Истинное решение";
+			this->chart1->Series->Add(series3);
+			this->chart1->Series->Add(series4);
 			this->chart1->Size = System::Drawing::Size(515, 401);
 			this->chart1->TabIndex = 0;
 			this->chart1->Text = L"chart1";
@@ -201,6 +206,8 @@ namespace laba1 {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->textBoxb);
+			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->checkBox1);
 			this->groupBox1->Controls->Add(this->textBoxEpsilon);
 			this->groupBox1->Controls->Add(this->labelEpsilon);
@@ -216,6 +223,23 @@ namespace laba1 {
 			this->groupBox1->TabIndex = 2;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Задай меня";
+			// 
+			// textBoxb
+			// 
+			this->textBoxb->Location = System::Drawing::Point(188, 25);
+			this->textBoxb->Name = L"textBoxb";
+			this->textBoxb->Size = System::Drawing::Size(118, 20);
+			this->textBoxb->TabIndex = 9;
+			this->textBoxb->Text = L"1000";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(163, 28);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(19, 13);
+			this->label2->TabIndex = 8;
+			this->label2->Text = L"b=";
 			// 
 			// checkBox1
 			// 
@@ -602,6 +626,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	double maxOLP = 0;
 	int CounterL = 0;
 	int CounterU = 0;
+	double b = System::Convert::ToDouble(textBoxb->Text);
 	double v = System::Convert::ToDouble(textBoxU0->Text);
 	double vkr = v;
 	double h = System::Convert::ToDouble(textBoxH->Text);
@@ -612,13 +637,18 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	double maxH = h, minH = h;
 
 	array<String^>^ ms = gcnew array< System::String^ >(11);
-
+	double prevX=x,prevV=v;
 	int i = 0;
 	if (!checkBox1->Checked)
 	{
 
 		for (i; i < N; i++)
 		{
+			if (x>=b)
+			{
+				break;
+			}
+
 			u0 = u(x);
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
@@ -648,6 +678,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			{
 				maxOLP = abs(en);
 			}
+			prevX = x;
 			x = nextX(x, h);
 			v = nextV(x, v, h);
 			
@@ -659,6 +690,11 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		
 		for (i ; i < N; i++)
 		{
+			if (x >= b)
+			{
+				break;
+			}
+
 			u0 = u(x);
 			ms[0] = i.ToString();
 			ms[1] = x.ToString();
@@ -686,7 +722,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			}
 			else if (modS > Epsilon)
 			{
-				double prevX=x,prevV=v;
+				
 				h /= 2;
 				if (minH > h)
 				{
@@ -712,7 +748,8 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			chart1->Series["Численное решение"]->Points->AddXY(x, v);
 			chart1->Series["Истинное решение"]->Points->AddXY(x, u(x));
 
-
+			prevX = x;
+			prevV = v;
 			x = nextX(x, h);
 			v = nextV(x, v, h);
 		}
@@ -720,7 +757,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	}
 	
 	labeln->Text = i.ToString();
-	labelB->Text = "Если бы мы знали что это такое, но мы не знаем что это такое";
+	labelB->Text = (b-x).ToString();
 	labelOLP->Text = maxOLP.ToString();
 	labelmaxh->Text = maxH.ToString();
 	labelmaxx->Text = maxx.ToString();
