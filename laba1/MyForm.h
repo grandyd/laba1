@@ -121,10 +121,11 @@ namespace laba1 {
 			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
 			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->textBoxB = (gcnew System::Windows::Forms::TextBox());
+			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->textBoxX0 = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
@@ -161,8 +162,6 @@ namespace laba1 {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->labeln = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->textBoxB = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
@@ -180,12 +179,7 @@ namespace laba1 {
 			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
 			series1->Legend = L"Legend1";
 			series1->Name = L"Численное решение";
-			series2->ChartArea = L"ChartArea1";
-			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series2->Legend = L"Legend1";
-			series2->Name = L"Истинное решение";
 			this->chart1->Series->Add(series1);
-			this->chart1->Series->Add(series2);
 			this->chart1->Size = System::Drawing::Size(515, 401);
 			this->chart1->TabIndex = 0;
 			this->chart1->Text = L"chart1";
@@ -222,6 +216,23 @@ namespace laba1 {
 			this->groupBox1->TabIndex = 2;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Задай меня";
+			// 
+			// textBoxB
+			// 
+			this->textBoxB->Location = System::Drawing::Point(210, 25);
+			this->textBoxB->Name = L"textBoxB";
+			this->textBoxB->Size = System::Drawing::Size(118, 20);
+			this->textBoxB->TabIndex = 11;
+			this->textBoxB->Text = L"10000";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(185, 28);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(19, 13);
+			this->label4->TabIndex = 10;
+			this->label4->Text = L"b=";
 			// 
 			// textBoxX0
 			// 
@@ -524,23 +535,6 @@ namespace laba1 {
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"n=";
 			// 
-			// label4
-			// 
-			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(185, 28);
-			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(19, 13);
-			this->label4->TabIndex = 10;
-			this->label4->Text = L"b=";
-			// 
-			// textBoxB
-			// 
-			this->textBoxB->Location = System::Drawing::Point(210, 25);
-			this->textBoxB->Name = L"textBoxB";
-			this->textBoxB->Size = System::Drawing::Size(118, 20);
-			this->textBoxB->TabIndex = 11;
-			this->textBoxB->Text = L"10000";
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -581,7 +575,6 @@ namespace laba1 {
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	this->chart1->Series["Численное решение"]->Points->Clear();
-	this->chart1->Series["Истинное решение"]->Points->Clear();
 	this->listView1->Items->Clear();
 
 
@@ -728,7 +721,6 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	}
 	//Заполнение справки
 	labeln->Text = i.ToString();
-	MessageBox::Show(x.ToString());
 	labelB->Text = (b-prevX).ToString();
 	labelOLP->Text = maxOLP.ToString();
 	labelmaxh->Text = maxH.ToString();
